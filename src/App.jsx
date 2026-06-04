@@ -8,6 +8,7 @@ import Payment from './pages/Payment';
 import GISMapping from './pages/GISMapping';
 import Mutation from './pages/Mutation';
 import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -20,9 +21,16 @@ function App() {
         {/* 2. PUBLIC ROUTE: Standalone Login Page */}
         <Route path="/login" element={<Login />} />
 
-        {/* 3. SECURE ROUTES: Now hosted under the "/dashboard" path */}
-        <Route path="/dashboard" element={<DashboardLayout />}>
-          
+        {/* 3. SECURE ROUTES: Wrapped with ProtectedRoute to enforce login check */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          {/* All these sub-pages are now protected by the wrapper above */}
           <Route index element={<DashboardHome />} />
           <Route path="properties" element={<Properties />} />
           <Route path="assessment" element={<Assessment />} />

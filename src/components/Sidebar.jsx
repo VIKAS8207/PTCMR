@@ -140,7 +140,12 @@ export default function Sidebar() {
             </div>
           </div>
           <button 
-            onClick={() => navigate('/login')}
+            onClick={() => {
+              // Destroy the auth token
+              localStorage.removeItem('ptcr_auth_token');
+              // Send them to the login page
+              navigate('/login');
+            }}
             className="text-gray-400 hover:text-red-500 transition-colors p-1.5 rounded-md hover:bg-red-50 shrink-0" 
             title="Logout"
           >
